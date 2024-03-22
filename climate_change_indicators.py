@@ -5,14 +5,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# For simplicity, let's focus on global average temperature change over the years.
-# We will create a simple predictive model to forecast future temperatures based on historical data.
-# This example will use a linear regression model, which is a basic approach for demonstrating predictive modeling.
+# Using a simple temperature record dataset from Kaggle we will fit a linear regression model to generate a trend-line
+# Then we will refine the fitting of the trend by switching to a polynomial regression
+# And finally with a good fit, we will generate a prediction based on the polynomial regression to predict global temperature by 2030
 
-# First, we need to prepare the dataset for modeling.
-# We'll average the temperature changes for each year across all countries, assuming the data allows for such calculation.
-# Then, we'll use these averages to fit the model.
-
+# Load dataset
 data = pd.read_csv('Climate\climate_change_indicators.csv')
 
 # Calculate the average temperature change per year across all countries
