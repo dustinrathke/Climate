@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # And finally with a good fit, we will generate a prediction based on the polynomial regression to predict global temperature by 2030
 
 # Load dataset
-data = pd.read_csv('Climate\climate_change_indicators.csv')
+data = pd.read_csv('climate_change_indicators.csv')
 
 # Calculate the average temperature change per year across all countries
 year_columns = [col for col in data.columns if col.startswith('F')]
@@ -118,7 +118,7 @@ poly_model.fit(X_poly, y)  # Training the model on the entire dataset for simpli
 y_poly_pred = poly_model.predict(X_poly)
 
 # 4. Define future years (2023 to 2030) for prediction and predict future temperatures.
-future_years = np.arange(2023, 2031).reshape(-1, 1)  # Future years we're interested in
+future_years = np.arange(2023, 2041).reshape(-1, 1)  # Future years we're interested in
 future_years_poly = poly_features.transform(future_years)  # Transforming future years into polynomial features
 future_temps_pred = poly_model.predict(future_years_poly)  # Predicting future temperatures
 
@@ -130,7 +130,7 @@ all_temps_pred = np.concatenate((y_poly_pred, future_temps_pred))  # Combining p
 # Adding a value label to the last point on the graph for the future predictions
 
 # Plotting the results with historical data and future predictions, including a label for the last future prediction point
-plt.figure(figsize=(12, 7))
+plt.figure(figsize=(12, 12))
 plt.scatter(X, y, color='blue', label='Actual Historical Temperature Changes')  # Actual data points
 plt.plot(all_years, all_temps_pred, color='green', linewidth=2, label='Polynomial Regression Predictions')  # Model predictions
 plt.scatter(future_years, future_temps_pred, color='red', label='Future Predictions')  # Highlighting future predictions
@@ -143,7 +143,7 @@ plt.text(last_year, last_temp_pred, f'{last_temp_pred:.2f}°C', color='red', ha=
 plt.title('Temperature Changes: Historical Data & Future Predictions')
 plt.xlabel('Year')
 plt.ylabel('Temperature Change (°C)')
-plt.ylim(bottom=min(y)-0.1, top=2.0)  # Adjusting y-axis
+plt.ylim(bottom=min(y)-0.1, top=3.0)  # Adjusting y-axis
 plt.legend()
 plt.grid(True)
 plt.show()
