@@ -135,10 +135,15 @@ plt.scatter(X, y, color='blue', label='Actual Historical Temperature Changes')  
 plt.plot(all_years, all_temps_pred, color='green', linewidth=2, label='Polynomial Regression Predictions')  # Model predictions
 plt.scatter(future_years, future_temps_pred, color='red', label='Future Predictions')  # Highlighting future predictions
 
+specific_year = 2030
+specific_year_index = np.where(future_years == specific_year)[0][0]  # Finding the index of the year 2030
+specific_temp_pred = future_temps_pred[specific_year_index]
+plt.text(specific_year, specific_temp_pred, f'{specific_temp_pred:.2f}°C', color='red', ha='right', va='bottom')
+
 # Adding a label to the last future prediction point
 last_year = future_years[-1, 0]
 last_temp_pred = future_temps_pred[-1]
-plt.text(last_year, last_temp_pred, f'{last_temp_pred:.2f}°C', color='red', ha='left', va='bottom')
+plt.text(last_year, last_temp_pred, f'{last_temp_pred:.2f}°C', color='red', ha='right', va='bottom')
 
 plt.title('Temperature Changes: Historical Data & Future Predictions')
 plt.xlabel('Year')
