@@ -59,10 +59,10 @@ plt.figure(figsize=(10, 6))
 plt.scatter(X, y, color='blue', label='Actual Temperature Changes')
 
 # Plotting the regression line
-plt.plot(X, model.predict(X), color='red', linewidth=2, label='Predicted Temperature Changes')
+plt.plot(X, model.predict(X), color='red', linewidth=2, label='Linear Regression Fit Over Temperature Records')
 
 # Adding titles and labels
-plt.title('Predicted vs Actual Temperature Changes Over Years')
+plt.title('Simple Linear Regression Fit by Temperature')
 plt.xlabel('Year')
 plt.ylabel('Temperature Change (°C)')
 plt.legend()
@@ -94,7 +94,7 @@ y_poly_pred = poly_model.predict(X_poly)
 plt.figure(figsize=(10, 6))
 plt.scatter(X, y, color='blue', label='Actual Temperature Changes')
 plt.plot(X, y_poly_pred, color='green', linewidth=2, label='Polynomial Model Predictions')
-plt.title('Polynomial Regression Model vs Actual Temperature Changes')
+plt.title('Polynomial Regression Model Fit over Temperature Change')
 plt.xlabel('Year')
 plt.ylabel('Temperature Change (°C)')
 plt.legend()
@@ -130,9 +130,9 @@ all_temps_pred = np.concatenate((y_poly_pred, future_temps_pred))  # Combining p
 # Adding a value label to the last point on the graph for the future predictions
 
 # Plotting the results with historical data and future predictions, including a label for the last future prediction point
-plt.figure(figsize=(12, 12))
+plt.figure(figsize=(12, 8))
 plt.scatter(X, y, color='blue', label='Actual Historical Temperature Changes')  # Actual data points
-plt.plot(all_years, all_temps_pred, color='green', linewidth=2, label='Polynomial Regression Predictions')  # Model predictions
+plt.plot(all_years, all_temps_pred, color='black', linewidth=2, label='Polynomial Regression Predictions')  # Model predictions
 plt.scatter(future_years, future_temps_pred, color='red', label='Future Predictions')  # Highlighting future predictions
 
 specific_year = 2030
@@ -145,11 +145,10 @@ last_year = future_years[-1, 0]
 last_temp_pred = future_temps_pred[-1]
 plt.text(last_year, last_temp_pred, f'{last_temp_pred:.2f}°C', color='red', ha='right', va='bottom')
 
-plt.title('Temperature Changes: Historical Data & Future Predictions')
+plt.title('Polynomial Regression Preditive Analysis: Historical Data & Future Predictions')
 plt.xlabel('Year')
 plt.ylabel('Temperature Change (°C)')
 plt.ylim(bottom=min(y)-0.1, top=3.0)  # Adjusting y-axis
 plt.legend()
 plt.grid(True)
 plt.show()
-
