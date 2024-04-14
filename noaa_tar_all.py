@@ -17,13 +17,13 @@ def fetch_station_metadata(url):
         return pd.DataFrame()
 
 # Function to lookup station IDs by name
-def get_station_id_by_name(df, station_id):
-    return df[df['ID'].str.contains(station_id, case=False, na=False)]
+def get_station_name_by_name(df, station_name):
+    return df[df['Name'].str.contains(station_name, case=False, na=False)]
 
 # Function to extract data for a specific station ID
-def extract_station_data(tar_path, station_id, extraction_path):
+def extract_station_data(tar_path, station_name, extraction_path):
     with tarfile.open(tar_path, "r:gz") as tar:
-        file_name = f"{station_id}.dly"
+        file_name = f"{station_name}.dly"
         try:
             tar.extract(file_name, path=extraction_path)
             print(f"Extracted {file_name} successfully.")
@@ -37,8 +37,8 @@ if __name__ == "__main__":
     station_metadata_df = fetch_station_metadata(station_metadata_url)
 
     # Step 2: User input for station name and lookup
-    station_id = input("Enter station ID: ")
-    matched_stations = get_station_id_by_name(station_metadata_df, station_id)
+    station_name = input("Enter station name: ")
+    matched_stations = get_station_name_by_name(station_metadata_df, station_name)
     print(matched_stations)
 
     # Assuming the user or script selects an ID from `matched_stations`
@@ -51,6 +51,8 @@ if __name__ == "__main__":
         
         # Extract data for the selected station ID
         extract_station_data(local_tar_path, selected_station_id, extraction_path)
+    ##elif not m
+    
     else:
         print("No matching station found.")
 
