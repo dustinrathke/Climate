@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # And finally with a good fit, we will generate a prediction based on the polynomial regression to predict global temperature by 2030
 
 # Load dataset
-data = pd.read_csv('climate_change_indicators.csv')
+data = pd.read_csv("C:/Users/Dustin Winter/OneDrive/Data/Climate/climate_change_indicators.csv")
 
 # Calculate the average temperature change per year across all countries
 year_columns = [col for col in data.columns if col.startswith('F')]
