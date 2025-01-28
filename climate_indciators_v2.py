@@ -39,28 +39,38 @@ for degree in degrees:
     avg_score = np.mean(scores)
     
     if avg_score > best_score:
-        best_degree = degree
         best_score = avg_score
+        best_degree = degree
         best_model = model
 
-# Retraining on the full dataset
+# Fit the best model to the entire dataset
 best_model.fit(X, y)
 
-# 1. Generate polynomial features for the original dataset years.
-poly_features = PolynomialFeatures(degree=2)  # Using a 2nd degree polynomial
-X_poly = poly_features.fit_transform(X)  # Transforming our original years data into polynomial features
+# Predict using the best model
+y_pred = best_model.predict(X)
 
-# 2. Train the polynomial regression model (using linear regression on polynomial features).
-poly_model = LinearRegression()
-poly_model.fit(X_poly, y)  # Training the model on the entire dataset for simplicity
+# Plotting the results
+plt.figure(figsize=(10, 6))
+plt.scatter(X, y, color='blue', label='Actual Data')
+plt.plot(X, y_pred, color='red', label='Polynomial Fit')
+plt.xlabel('Year')
+plt.ylabel('Temperature Change')
+plt.title('Temperature Change Over Years')
+
+# Set the x-axis range
+start_year = X['Year'].min()
+end_year = 2040
+plt.xlim(start_year, end_year)
+
+plt.legend()
+plt.show()
 
 # 3. Predict temperatures for the original dataset years using the trained model.
-y_poly_pred = poly_model.predict(X_poly)
+y_poly_pred = best_model.predict(X)
 
-# 4. Define future years (2023 to 2030) for prediction and predict future temperatures.
+# 4. Define future years (2023 to 2040) for prediction and predict future temperatures.
 future_years = np.arange(2023, 2041).reshape(-1, 1)  # Future years we're interested in
-future_years_poly = poly_features.transform(future_years)  # Transforming future years into polynomial features
-future_temps_pred = poly_model.predict(future_years_poly)  # Predicting future temperatures
+future_temps_pred = best_model.predict(future_years)  # Predicting future temperatures
 
 # 5. Combine the original dataset years and future years for plotting.
 all_years = np.vstack((X, future_years))  # Combining original and future years
@@ -79,7 +89,10 @@ plt.title('Future Temperature Predictions')
 plt.xlabel('Year')
 plt.ylabel('Predicted Temperature Change (°C)')
 plt.grid(True)
-plt.xticks(all_years.flatten(), rotation=45)
+plt.xticks(np.arange(start_year, end_year + 1, 5), rotation=45)
+
+# Set the x-axis range for future predictions
+plt.xlim(start_year, end_year)
 
 plt.tight_layout()
 
